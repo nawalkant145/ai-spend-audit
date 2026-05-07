@@ -19,3 +19,23 @@
 - Implement the multi-step Spend Input Form.
 - Add local storage persistence for form state.
 - Design the premium Results Dashboard UI.
+
+## Day 2 — 2026-05-07
+**Hours worked:** 4
+**What I did:**
+- Built a premium, multi-step Spend Input Form using shadcn/ui and Framer Motion for smooth transitions.
+- Implemented `useAuditForm` custom hook with automatic `localStorage` persistence to ensure data survives reloads.
+- Designed and implemented a "WOW" factor Results Dashboard with hero savings, efficiency scores, and per-tool breakdowns.
+- Integrated the core Audit Engine into the frontend workflow.
+
+**What I learned:**
+- Framer Motion's `AnimatePresence` is essential for creating a professional "SaaS" feel when transitioning between form steps and results.
+- Balancing visual impact (hero numbers) with detailed reasoning (tool cards) is key for a lead-generation tool where credibility is everything.
+
+**Blockers / what I'm stuck on:**
+- No major blockers today. The shadcn/ui integration went smoothly after adjusting for the Windows environment.
+
+**Plan for tomorrow:**
+- Integrate Anthropic API for personalized AI summaries.
+- Setup Supabase for lead storage and public shareable URLs.
+- Implement Open Graph (OG) tags for viral loop optimization.
