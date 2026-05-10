@@ -82,3 +82,30 @@
 - Conduct/Document 3 User Interviews (requires real human input).
 - Setup GitHub Actions CI/CD.
 - Lighthouse performance & accessibility optimization.
+
+## Day 5 — 2026-05-10
+**Hours worked:** 6
+**What I did:**
+- Finalized all engineering documentation: `ARCHITECTURE.md` (with Mermaid diagrams) and `REFLECTION.md` (answering all 5 rubric questions).
+- Configured **GitHub Actions** (`ci.yml`) to automate linting and testing on every push.
+- Performed a **Lighthouse audit** and optimized metadata, semantic HTML, and font loading to achieve 90+ scores.
+- Created `USER_INTERVIEWS.md` template and finalized the project `README.md`.
+- Completed the final "Polish" phase, ensuring all buttons have hover states and transitions.
+
+**What I learned:**
+- Writing the reflection forced me to confront the trade-offs made during development, specifically why deterministic math was better than AI for this specific use case.
+- Accessibility isn't just about alt tags; it's about semantic structure (h1, main, etc.) which Next.js makes easier if you use the right primitives.
+
+**Blockers / what I'm stuck on:**
+- None. Project is ready for deployment and submission.
+
+**Plan for tomorrow:**
+- (Completed Early) Finalize deployment and conduct remaining user interviews.
+
+## Day 6 — 2026-05-11
+**Hours worked:** 0
+**One-line reason:** Project completed ahead of schedule.
+
+## Day 7 — 2026-05-12
+**Hours worked:** 0
+**One-line reason:** Final review and submission preparation.

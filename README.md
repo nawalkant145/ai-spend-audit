@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lumina: AI Spend Audit for Startups
 
-## Getting Started
+Lumina is a premium, lead-generating audit tool built for **Credex**. It helps startup founders and engineering managers uncover hidden savings in their AI tool stack by providing deterministic, defensible optimization roadmaps and AI-generated executive summaries.
 
-First, run the development server:
+**Live Deployed URL**: [https://ai-spend-audit-lumina.vercel.app](https://your-deployed-url.com)
 
+## Quick Start
+
+### 1. Prerequisites
+- Node.js 18+
+- Supabase Account (for Lead Storage)
+- Anthropic API Key (for AI Summaries)
+- Resend API Key (for Transactional Emails)
+
+### 2. Installation
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/ai-spend-audit.git
+cd ai-spend-audit
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Environment Setup
+Create a `.env.local` file with:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_key
+ANTHROPIC_API_KEY=your_anthropic_key
+RESEND_API_KEY=your_resend_key
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 4. Run Locally
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 5. Running Tests
+```bash
+npm run test
+```
 
-## Learn More
+## 5 Key Decisions & Trade-offs
 
-To learn more about Next.js, take a look at the following resources:
+1. **Deterministic vs. Generative Math**: I chose to use pure TypeScript functions for the audit logic rather than an LLM. **Trade-off**: Harder to maintain as prices change, but ensures 100% accuracy and defensibility—crucial for a finance tool.
+2. **"Zero-Permission" Audit**: I decided not to require AWS/OpenAI API keys for the audit. **Trade-off**: Less automated, but significantly higher conversion rates as founders are hesitant to share production keys.
+3. **Database Normalization (PII split)**: I split "Audits" and "Leads" into separate tables. **Trade-off**: More complex queries, but essential for secure public sharing without exposing personal data.
+4. **Custom UI vs. Template**: I built the UI using `shadcn/ui` primitives rather than a pre-built admin dashboard. **Trade-off**: More development time, but resulted in a "Premium" feel that aligns with Credex's brand.
+5. **Next.js App Router**: Used the App Router for its built-in Metadata API. **Trade-off**: Steeper learning curve, but allows for dynamic Open Graph tags which are vital for the viral sharing loop.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Documentation
+- [ARCHITECTURE.md](ARCHITECTURE.md) - System design and data flow.
+- [DEVLOG.md](DEVLOG.md) - Daily progress logs (Mandatory 7 entries).
+- [REFLECTION.md](REFLECTION.md) - Detailed project reflections.
+- [TESTS.md](TESTS.md) - Automated test documentation.
+- [PRICING_DATA.md](PRICING_DATA.md) - Verified source of truth for engine logic.
+- [GTM.md](GTM.md) & [ECONOMICS.md](ECONOMICS.md) - Business strategy.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
+Next.js 14, TypeScript, Tailwind CSS, shadcn/ui, Framer Motion, Supabase, Resend, Anthropic SDK.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Built with pride for the **Credex Web Development Intern Assignment**.
