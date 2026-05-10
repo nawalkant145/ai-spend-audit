@@ -24,12 +24,22 @@ export function runAudit(input: AuditInput): AuditResult {
   );
 
   if (codingAssistants.length > 1) {
+    // To avoid double counting: consolidation saving is the current spend of redundant tools
+    // but we must subtract any individual savings already accounted for in those tools
+    const primaryTool = codingAssistants[0];
+    const redundantTools = codingAssistants.slice(1);
+    
+    const redundantSpend = redundantTools.reduce((sum, t) => sum + t.monthlySpend, 0);
+    const individualSavingsAlreadyCounted = recommendations
+      .filter(r => redundantTools.some(t => t.toolName === r.toolName))
+      .reduce((sum, r) => sum + r.potentialMonthlySavings, 0);
+
     recommendations.push({
-      toolName: 'Windsurf', // Using one as a placeholder for the "Stack" recommendation
-      currentSpend: codingAssistants.reduce((sum, t) => sum + t.monthlySpend, 0),
+      toolName: redundantTools[0].toolName,
+      currentSpend: redundantSpend,
       recommendedAction: 'Consolidate Coding Assistants',
-      reasoning: `You're paying for both ${codingAssistants.map(t => t.toolName).join(' and ')}. Consolidating to one tool could save significant costs without productivity loss.`,
-      potentialMonthlySavings: codingAssistants.slice(1).reduce((sum, t) => sum + t.monthlySpend, 0),
+      reasoning: `You're paying for both ${codingAssistants.map(t => t.toolName).join(' and ')}. By consolidating to just ${primaryTool.toolName}, you can eliminate redundant subscriptions.`,
+      potentialMonthlySavings: redundantSpend - individualSavingsAlreadyCounted,
     });
   }
 

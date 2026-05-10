@@ -81,4 +81,24 @@ describe('AuditEngine', () => {
     expect(result.totalMonthlySavings).toBe(0);
     expect(result.isOptimal).toBe(true);
   });
+
+  it('should not double-count savings when consolidating non-optimal tools', () => {
+    const input: AuditInput = {
+      tools: [
+        { toolName: 'Cursor', planName: 'Business', monthlySpend: 80, seats: 2 }, // Savings: 40
+        { toolName: 'GitHub Copilot', planName: 'Business', monthlySpend: 19, seats: 1 } // Savings: 9
+      ],
+      teamSize: 2,
+      primaryUseCase: 'coding'
+    };
+
+    const result = runAudit(input);
+    // Real logic: 
+    // 1. Cursor Downgrade: Save $40. Cost remains $40.
+    // 2. Copilot Switch: Save $9. Cost remains $10.
+    // 3. Consolidate: Drop Copilot entirely. Save the remaining $10.
+    // Total savings should be $40 (Cursor) + $19 (Copilot total) = $59.
+    
+    expect(result.totalMonthlySavings).toBe(59);
+  });
 });
