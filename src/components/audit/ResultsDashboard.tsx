@@ -33,7 +33,7 @@ export function ResultsDashboard({ result, input, onReset, isPublic = false }: {
     } catch (err) {
       console.error('Save Audit Error:', err);
     }
-  }, [result]);
+  }, [result, input]);
 
   const generateSummary = useCallback(async () => {
     try {

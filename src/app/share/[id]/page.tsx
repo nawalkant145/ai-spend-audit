@@ -3,11 +3,17 @@ import { supabase } from '@/lib/supabase';
 import { ResultsDashboard } from '@/components/audit/ResultsDashboard';
 import { notFound } from 'next/navigation';
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  
   const { data: audit } = await supabase
     .from('audits')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single();
 
   if (!audit) return { title: 'Audit Not Found' };
@@ -30,19 +36,18 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   };
 }
 
-export default async function SharePage({ params }: { params: { id: string } }) {
+export default async function SharePage({ params }: Props) {
+  const { id } = await params;
+
   const { data: audit, error } = await supabase
     .from('audits')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .single();
 
   if (error || !audit) {
     notFound();
   }
-
-  // Strip any potential PII from the audit object before passing to UI if needed
-  // For now, our DB schema will only store non-PII in the public 'audits' table
 
   return (
     <div className="min-h-screen bg-slate-50/50">
