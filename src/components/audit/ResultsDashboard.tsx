@@ -11,7 +11,9 @@ import { TrendingDown, ShieldCheck, Zap, AlertCircle, Share2, Mail, Sparkles, Lo
 import { LeadCapture } from './LeadCapture';
 import { supabase } from '@/lib/supabase';
 
-export function ResultsDashboard({ result, onReset, isPublic = false }: { result: AuditResult; onReset?: () => void; isPublic?: boolean }) {
+import { AuditResult, AuditInput } from '@/lib/audit/types';
+
+export function ResultsDashboard({ result, input, onReset, isPublic = false }: { result: AuditResult; input: AuditInput; onReset?: () => void; isPublic?: boolean }) {
   const [summary, setSummary] = useState<string>('');
   const [isLoadingSummary, setIsLoadingSummary] = useState(!isPublic);
   const [showLeadCapture, setShowLeadCapture] = useState(false);
@@ -24,6 +26,7 @@ export function ResultsDashboard({ result, onReset, isPublic = false }: { result
     try {
       const { data, error } = await supabase.from('audits').insert([{
         result: result,
+        input: input, // Storing input for shared reports
       }]).select().single();
       
       if (!error && data) {
@@ -40,8 +43,8 @@ export function ResultsDashboard({ result, onReset, isPublic = false }: { result
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          teamSize: 10, // Mocked for now, should come from context
-          useCase: 'mixed',
+          teamSize: input.teamSize,
+          useCase: input.primaryUseCase,
           toolsList: result.recommendations.map(r => r.toolName).join(', '),
           monthlySavings: result.totalMonthlySavings,
           annualSavings: result.totalAnnualSavings,
@@ -56,7 +59,7 @@ export function ResultsDashboard({ result, onReset, isPublic = false }: { result
     } finally {
       setIsLoadingSummary(false);
     }
-  }, [result]);
+  }, [result, input]);
 
   useEffect(() => {
     const init = async () => {

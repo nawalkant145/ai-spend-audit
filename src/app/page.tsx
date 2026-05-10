@@ -105,7 +105,7 @@ export default function Home() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
           >
-            {auditResult && <ResultsDashboard result={auditResult} onReset={handleReset} />}
+            {auditResult && <ResultsDashboard result={auditResult} input={formData} onReset={handleReset} />}
           </motion.div>
         )}
       </AnimatePresence>

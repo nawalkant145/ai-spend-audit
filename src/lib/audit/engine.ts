@@ -50,7 +50,7 @@ function evaluateTool(tool: ToolSpend): AuditRecommendation | null {
 
   // 1. Cursor Optimization
   if (toolName === 'Cursor') {
-    if (planName === 'Business' && seats < 3) {
+    if (planName.toLowerCase().includes('business') && seats < 3) {
       const proCost = PRICING.Cursor.Pro * seats;
       return {
         toolName,
@@ -65,7 +65,7 @@ function evaluateTool(tool: ToolSpend): AuditRecommendation | null {
 
   // 2. GitHub Copilot Optimization
   if (toolName === 'GitHub Copilot') {
-    if (planName === 'Business' && seats === 1) {
+    if (planName.toLowerCase().includes('business') && seats === 1) {
       return {
         toolName,
         currentSpend: monthlySpend,
@@ -79,7 +79,7 @@ function evaluateTool(tool: ToolSpend): AuditRecommendation | null {
 
   // 3. Claude Optimization
   if (toolName === 'Claude') {
-    if (planName === 'Team' && seats < 5) {
+    if (planName.toLowerCase().includes('team') && seats < 5) {
       const proCost = PRICING.Claude.Pro * seats;
       return {
         toolName,
@@ -94,7 +94,7 @@ function evaluateTool(tool: ToolSpend): AuditRecommendation | null {
 
   // 4. ChatGPT Optimization
   if (toolName === 'ChatGPT') {
-    if (planName === 'Team' && seats < 2) {
+    if (planName.toLowerCase().includes('team') && seats < 2) {
        return {
         toolName,
         currentSpend: monthlySpend,
