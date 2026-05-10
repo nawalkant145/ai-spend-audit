@@ -22,34 +22,41 @@ export function LeadCapture({ auditId, savings, onCaptured }: { auditId?: string
     setIsSubmitting(true);
 
     try {
-      // 1. Store in Supabase
-      const { error: dbError } = await supabase.from('leads').insert([{
-        email,
-        company_name: company,
-        audit_id: auditId,
-      }]);
+      // 1. Store in Supabase (non-blocking for email)
+      try {
+        const { error: dbError } = await supabase.from('leads').insert([{
+          email,
+          company_name: company,
+          audit_id: auditId || null,
+        }]);
+        if (dbError) console.error('Lead DB Error:', dbError);
+      } catch (dbErr) {
+        console.error('Lead DB Exception:', dbErr);
+      }
 
-      if (dbError) throw dbError;
-
-      // 2. Trigger Transactional Email
-      if (auditId && typeof savings !== 'undefined') {
-        await fetch('/api/send-report', {
+      // 2. Trigger Transactional Email (always attempt if we have data)
+      try {
+        const emailRes = await fetch('/api/send-report', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email,
             companyName: company,
-            savings: savings, // Already annual
-            auditLink: `${window.location.origin}/share/${auditId}`,
+            savings: savings || 0,
+            auditLink: auditId ? `${window.location.origin}/share/${auditId}` : window.location.origin,
           }),
         });
+        const emailData = await emailRes.json();
+        console.log('Email API Response:', emailData);
+      } catch (emailErr) {
+        console.error('Email Send Exception:', emailErr);
       }
       
       setIsSuccess(true);
       setTimeout(() => onCaptured(), 3000);
     } catch (err) {
       console.error('Lead Capture Error:', err);
-      setIsSuccess(true); // Don't block user on non-critical failures
+      setIsSuccess(true);
       onCaptured();
     } finally {
       setIsSubmitting(false);
