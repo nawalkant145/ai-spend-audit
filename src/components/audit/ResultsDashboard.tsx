@@ -20,14 +20,7 @@ export function ResultsDashboard({ result, onReset, isPublic = false }: { result
 
   const hasHighSavings = result.totalMonthlySavings >= 500;
 
-  useEffect(() => {
-    if (!isPublic) {
-      generateSummary();
-      saveAuditToDb();
-    }
-  }, []);
-
-  const saveAuditToDb = async () => {
+  const saveAuditToDb = useCallback(async () => {
     try {
       const { data, error } = await supabase.from('audits').insert([{
         result: result,
@@ -39,9 +32,9 @@ export function ResultsDashboard({ result, onReset, isPublic = false }: { result
     } catch (err) {
       console.error('Save Audit Error:', err);
     }
-  };
+  }, [result]);
 
-  const generateSummary = async () => {
+  const generateSummary = useCallback(async () => {
     try {
       const res = await fetch('/api/summarize', {
         method: 'POST',
@@ -59,11 +52,21 @@ export function ResultsDashboard({ result, onReset, isPublic = false }: { result
       setSummary(data.summary);
     } catch (err) {
       console.error('Summary Error:', err);
-      setSummary("Your audit is ready. We've found significant opportunities to optimize your AI stack.");
+      setSummary("Your audit is ready. We&apos;ve found significant opportunities to optimize your AI stack.");
     } finally {
       setIsLoadingSummary(false);
     }
-  };
+  }, [result]);
+
+  useEffect(() => {
+    const init = async () => {
+      if (!isPublic) {
+        await generateSummary();
+        await saveAuditToDb();
+      }
+    };
+    init();
+  }, [isPublic, generateSummary, saveAuditToDb]);
 
   const handleShare = async () => {
     if (!auditId) return;
@@ -106,7 +109,7 @@ export function ResultsDashboard({ result, onReset, isPublic = false }: { result
               </div>
             ) : (
               <p className="text-lg leading-relaxed text-slate-700 italic">
-                "{summary}"
+                &quot;{summary}&quot;
               </p>
             )}
           </CardContent>
@@ -195,7 +198,7 @@ export function ResultsDashboard({ result, onReset, isPublic = false }: { result
           {!showLeadCapture ? (
             <div className="flex flex-col items-center text-center space-y-6">
               <div className="space-y-2">
-                <h3 className="text-2xl font-bold">What's Next?</h3>
+                <h3 className="text-2xl font-bold">What&apos;s Next?</h3>
                 <p className="text-muted-foreground">Capture this report to your email or share it with your team.</p>
               </div>
               <div className="flex flex-wrap justify-center gap-4">

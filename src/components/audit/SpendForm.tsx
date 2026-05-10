@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuditForm } from '@/hooks/useAuditForm';
 import { ToolName, UseCase } from '@/lib/audit/types';
-import { Plus, Trash2, ArrowRight, ArrowLeft, Sparkles } from 'lucide-react';
+import { Plus, Trash2, ArrowRight, Sparkles } from 'lucide-react';
 
 const TOOLS: ToolName[] = [
   'Cursor', 'GitHub Copilot', 'Claude', 'ChatGPT', 
@@ -102,7 +102,7 @@ export function SpendForm({ onComplete }: { onComplete: () => void }) {
               <CardHeader className="flex flex-row items-center justify-between">
                 <div>
                   <CardTitle className="text-2xl">AI Tool Stack</CardTitle>
-                  <CardDescription>List the tools you're currently paying for.</CardDescription>
+                  <CardDescription>List the tools you&apos;re currently paying for.</CardDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={() => addTool({ toolName: 'ChatGPT', planName: 'Plus', monthlySpend: 20, seats: 1 })}>
                   <Plus className="mr-2 h-4 w-4" /> Add Tool
@@ -111,7 +111,7 @@ export function SpendForm({ onComplete }: { onComplete: () => void }) {
               <CardContent className="space-y-4">
                 {formData.tools.length === 0 && (
                   <div className="text-center py-12 border-2 border-dashed rounded-lg text-muted-foreground">
-                    No tools added yet. Click "Add Tool" to begin.
+                    No tools added yet. Click &quot;Add Tool&quot; to begin.
                   </div>
                 )}
                 {formData.tools.map((tool, index) => (
@@ -185,7 +185,7 @@ export function SpendForm({ onComplete }: { onComplete: () => void }) {
             <Card className="border-2 border-primary shadow-2xl bg-primary/5">
               <CardHeader>
                 <CardTitle className="text-2xl">Ready for Audit?</CardTitle>
-                <CardDescription>We've captured {formData.tools.length} tools across your {formData.teamSize}-person team.</CardDescription>
+                <CardDescription>We&apos;ve captured {formData.tools.length} tools across your {formData.teamSize}-person team.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-6 text-center">
                 <div className="p-6 bg-background rounded-xl border-2">

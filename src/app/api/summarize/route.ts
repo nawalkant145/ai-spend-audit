@@ -57,6 +57,11 @@ Output only the summary paragraph.`
   }
 }
 
-function generateFallback(data: any) {
+interface SummaryData {
+  teamSize: number;
+  monthlySavings: number;
+}
+
+function generateFallback(data: SummaryData) {
   return `Based on your team of ${data.teamSize}, we've identified $${data.monthlySavings} in immediate monthly optimizations. Focus on consolidating your tool stack to capture these savings.`;
 }

@@ -14,7 +14,7 @@ export function runAudit(input: AuditInput): AuditResult {
 
   input.tools.forEach((tool) => {
     totalMonthlySpend += tool.monthlySpend;
-    const rec = evaluateTool(tool, input.teamSize);
+    const rec = evaluateTool(tool);
     if (rec) recommendations.push(rec);
   });
 
@@ -45,7 +45,7 @@ export function runAudit(input: AuditInput): AuditResult {
   };
 }
 
-function evaluateTool(tool: ToolSpend, teamSize: number): AuditRecommendation | null {
+function evaluateTool(tool: ToolSpend): AuditRecommendation | null {
   const { toolName, planName, monthlySpend, seats } = tool;
 
   // 1. Cursor Optimization

@@ -5,7 +5,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-export async function saveAudit(auditData: any) {
+export async function saveAudit(auditData: unknown) {
   const { data, error } = await supabase
     .from('audits')
     .insert([auditData])
@@ -15,7 +15,7 @@ export async function saveAudit(auditData: any) {
   return data[0];
 }
 
-export async function saveLead(leadData: any) {
+export async function saveLead(leadData: unknown) {
   const { data, error } = await supabase
     .from('leads')
     .insert([leadData]);

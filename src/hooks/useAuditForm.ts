@@ -17,15 +17,20 @@ export function useAuditForm() {
 
   // Load from localStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        setFormData(JSON.parse(saved));
-      } catch (e) {
-        console.error('Failed to parse saved form data', e);
+    const initialize = () => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          setFormData(parsed);
+        } catch (e) {
+          console.error('Failed to parse saved form data', e);
+        }
       }
-    }
-    setIsLoaded(true);
+      setIsLoaded(true);
+    };
+
+    initialize();
   }, []);
 
   // Save to localStorage on change

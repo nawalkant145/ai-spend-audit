@@ -7,7 +7,7 @@ import { ResultsDashboard } from '@/components/audit/ResultsDashboard';
 import { runAudit } from '@/lib/audit/engine';
 import { useAuditForm } from '@/hooks/useAuditForm';
 import { AuditResult } from '@/lib/audit/types';
-import { Sparkles, ArrowRight, BarChart3, ShieldCheck, Zap } from 'lucide-react';
+import { Sparkles, BarChart3, ShieldCheck, Zap } from 'lucide-react';
 
 export default function Home() {
   const [showResults, setShowResults] = useState(false);
@@ -64,7 +64,7 @@ export default function Home() {
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="text-xl text-slate-600 max-w-2xl mx-auto"
                   >
-                    Get a free, instant audit of your startup's AI spend. 
+                    Get a free, instant audit of your startup&apos;s AI spend. 
                     Benchmark your stack and uncover hidden savings in minutes.
                   </motion.p>
                 </div>
