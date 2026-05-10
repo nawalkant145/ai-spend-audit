@@ -1,6 +1,6 @@
 # AI Prompts Strategy
 
-This document outlines the LLM prompts used in Lumina to generate personalized summaries. We prioritize **Anthropic's Claude 3.5 Sonnet** for its superior reasoning on financial and technical trade-offs.
+This document outlines the LLM prompts designed for Lumina. While the MVP currently utilizes a **Deterministic Smart Mock Engine** to ensure 100% uptime and zero cost, these prompts are ready for integration with **Anthropic's Claude 3.5 Sonnet**.
 
 ## Personalized Audit Summary
 

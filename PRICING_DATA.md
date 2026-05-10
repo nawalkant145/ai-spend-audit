@@ -25,6 +25,8 @@ All pricing information below is current as of May 6, 2026. These figures serve 
 ### Claude (Anthropic)
 - **Free**: $0/month — https://www.anthropic.com/claude/pricing — Verified 2026-05-06
 - **Pro**: $20/month — https://www.anthropic.com/claude/pricing — Verified 2026-05-06
+- **Max 5x**: $100/month — https://claude.com/pricing — Verified 2026-05-06
+- **Max 20x**: $200/month — https://claude.com/pricing — Verified 2026-05-06
 - **Team**: $30/user/month (min 5 users) — https://www.anthropic.com/claude/pricing — Verified 2026-05-06
 - **Enterprise**: Custom — https://www.anthropic.com/claude/pricing — Verified 2026-05-06
 

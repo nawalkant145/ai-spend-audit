@@ -74,7 +74,35 @@ High-spend users ($500+/mo) are flagged as qualified leads for Credex's infrastr
 
 ---
 
+## Screenshots
+
+> Real screenshots captured from the live application at [ai-spend-audit-zwrb.vercel.app](https://ai-spend-audit-zwrb.vercel.app/)
+
+![Lumina Landing Page](./public/screenshots/landing.png)
+*Landing Page — Hero section with value proposition and Credex lead-gen context.*
+
+![Audit Form Step 2](./public/screenshots/form.png)
+*Audit Form — Dynamic tool stack input with instant state persistence.*
+
+![Audit Results Dashboard](./public/screenshots/results.png)
+*Results Dashboard — Hero savings, AI-generated summary, and per-tool breakdown.*
+
+---
+
+## Decisions (5 Trade-offs)
+
+| # | Decision | Why |
+|---|---|---|
+| 1 | **Deterministic engine over LLM for audit math** | Financial recommendations must be defensible. LLMs hallucinate prices. A rules engine with sourced pricing data ensures a finance person can verify every number. |
+| 2 | **PII separation: two Supabase tables** | The `audits` table (public) is separated from `leads` (private emails). This prevents accidental PII exposure through shareable URLs, which is critical for a viral-loop product. |
+| 3 | **Smart Mock AI instead of paid Anthropic API** | Pivoted from real LLM calls to a deterministic simulation engine to ensure 100% uptime, zero latency, and $0 operational cost. The UX (loading delay + personalized text) is preserved. |
+| 4 | **No login required; email captured after value** | Following the "value before gate" principle. Showing the full audit before asking for email increases conversion vs. a login-first approach. The honeypot protects against spam without adding UX friction (vs. hCaptcha). |
+| 5 | **Case-insensitive plan matching in the engine** | Users type "Business Plan" or "business" — strict equality breaks silently. Using `.toLowerCase().includes()` makes the engine resilient to real-world input variations without requiring a rigid dropdown-only UX. |
+
+---
+
 ## Getting Started
+
 
 ### Prerequisites
 - Node.js 18+
