@@ -32,14 +32,14 @@ export function LeadCapture({ auditId, savings, onCaptured }: { auditId?: string
       if (dbError) throw dbError;
 
       // 2. Trigger Transactional Email
-      if (savings && auditId) {
+      if (auditId && typeof savings !== 'undefined') {
         await fetch('/api/send-report', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email,
             companyName: company,
-            savings: savings * 12, // Annual
+            savings: savings, // Already annual
             auditLink: `${window.location.origin}/share/${auditId}`,
           }),
         });

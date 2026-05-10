@@ -212,7 +212,11 @@ export function ResultsDashboard({ result, onReset, isPublic = false }: { result
               </div>
             </div>
           ) : (
-            <LeadCapture auditId={auditId || undefined} onCaptured={() => setShowLeadCapture(false)} />
+            <LeadCapture 
+              auditId={auditId || undefined} 
+              savings={result.totalAnnualSavings}
+              onCaptured={() => setShowLeadCapture(false)} 
+            />
           )}
         </div>
       )}
