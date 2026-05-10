@@ -6,12 +6,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { AuditResult } from '@/lib/audit/types';
+import { AuditResult, AuditInput } from '@/lib/audit/types';
 import { TrendingDown, ShieldCheck, Zap, AlertCircle, Share2, Mail, Sparkles, Loader2, Check } from 'lucide-react';
 import { LeadCapture } from './LeadCapture';
 import { supabase } from '@/lib/supabase';
-
-import { AuditResult, AuditInput } from '@/lib/audit/types';
 
 export function ResultsDashboard({ result, input, onReset, isPublic = false }: { result: AuditResult; input: AuditInput; onReset?: () => void; isPublic?: boolean }) {
   const [summary, setSummary] = useState<string>('');
