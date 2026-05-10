@@ -1,8 +1,6 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: Request) {
   try {
     const { email, companyName, savings, auditLink } = await req.json();
@@ -10,6 +8,8 @@ export async function POST(req: Request) {
     if (!process.env.RESEND_API_KEY) {
       return NextResponse.json({ message: 'Email skipped (no API key)' }, { status: 200 });
     }
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const { data, error } = await resend.emails.send({
       from: 'Lumina AI Audit <onboarding@resend.dev>', // Replace with custom domain in production
